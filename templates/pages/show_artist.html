@@ -21,7 +21,7 @@
 			<i class="fas fa-phone-alt"></i> {% if artist.phone %}{{ artist.phone }}{% else %}No Phone{% endif %}
         </p>
         <p>
-			<i class="fas fa-link"></i> {% if artist.website %}<a href="{{ artist.website }}" target="_blank">{{ artist.website }}</a>{% else %}No Website{% endif %}
+			<i class="fas fa-link"></i> {% if artist.webpage_link %}<a href="{{ artist.webpage_link }}" target="_blank">{{ artist.webpage_link }}</a>{% else %}No Website{% endif %}
 		</p>
 		<p>
 			<i class="fab fa-facebook-f"></i> {% if artist.facebook_link %}<a href="{{ artist.facebook_link }}" target="_blank">{{ artist.facebook_link }}</a>{% else %}No Facebook Link{% endif %}
@@ -71,6 +71,24 @@
 		{% endfor %}
 	</div>
 </section>
+<a href="/artists/{{ artist.id }}/edit" class="btn btn-default">Edit Artist</a>
+<button class="btn btn-danger delete">Delete Artist</button>
 
+<script>
+	const deleteButton = document.querySelector('.delete')
+	deleteButton.addEventListener('click', function(e){
+		const id = {{artist.id|safe}}
+		console.log(id) 
+		fetch(`/artists/${id}`, {
+                method: 'DELETE',
+            }).then(async r => {
+				const res = await r.json()
+				if(r.success = true)
+				window.location.replace('/')
+            }).catch(e => {
+                console.log(e)
+            })
+	})
+</script>
 {% endblock %}
 

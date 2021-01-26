@@ -74,6 +74,24 @@
 		{% endfor %}
 	</div>
 </section>
-
+<a href="/venues/{{ venue.id }}/edit" class="btn btn-primary">Edit Venue</a>
+<button href="" class="btn btn-danger delete">Delete Venue</button>
+<script>
+	// implement fetch for delete here later...
+	const deleteButton = document.querySelector('.delete')
+	deleteButton.addEventListener('click', function(e){
+		const id = {{venue.id|safe}}
+		console.log(id) 
+		fetch(`/venues/${id}`, {
+                method: 'DELETE',
+            }).then(async r => {
+				const res = await r.json()
+				if(r.success = true)
+				window.location.replace('/')
+            }).catch(e => {
+                console.log(e)
+            })
+	})
+</script>
 {% endblock %}
 
